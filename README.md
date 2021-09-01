@@ -251,5 +251,5 @@ Ejemplo de respuesta
 _Para ejecutar los test usamos MOCHA y para ver los reportes NyC_
 
 ```
-npm coverage
+npm run coverage
 ```

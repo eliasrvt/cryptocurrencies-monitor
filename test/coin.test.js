@@ -5,8 +5,8 @@ const app = require("../app.js");
 
 describe("COIN API tests", function () {
 
-  const token = null;
-  const coinId = "uniswap";
+  let token = null;
+  let coinId = "uniswap";
   const userTest = { username: "admin", password: "password" };
 
   before(function (done) {
@@ -26,4 +26,18 @@ describe("COIN API tests", function () {
       .expect(200, done);
   });
 
+  it("Should get Error 403 - Request without Token", function (done) {
+    request(app)
+      .get("/coins")
+      .query({ limit: 10 })
+      .expect(403, done);
+  });
+
+  it("Should get Error 500 - Wrong token", function (done) {
+    request(app)
+      .get("/coins")
+      .set("Authorization", "Bearer wrongBearerTokeN")
+      .query({ limit: 10 })
+      .expect(500, done);
+  });
 });
