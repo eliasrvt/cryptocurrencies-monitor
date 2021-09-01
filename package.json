@@ -8,7 +8,8 @@
     "prod": "export NODE_ENV=production && nodemon ./bin/www",
     "test": "export NODE_ENV=test && mocha",
     "migrate": "export NODE_ENV=development && npx sequelize-cli db:migrate",
-    "seeder": "export NODE_ENV=development && npx sequelize-cli db:seed:all"
+    "seeder": "export NODE_ENV=development && npx sequelize-cli db:seed:all",
+    "coverage": "export NODE_ENV=test && nyc npm run test"
   },
   "dependencies": {
     "@hapi/joi": "^17.1.1",
@@ -28,6 +29,7 @@
   },
   "devDependencies": {
     "mocha": "^9.1.1",
+    "nyc": "^15.1.0",
     "sequelize-cli": "^6.2.0",
     "supertest": "^6.1.6"
   }

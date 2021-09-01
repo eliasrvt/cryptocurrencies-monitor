@@ -29,7 +29,9 @@ module.exports = {
       res.status(201);
       let responseData = {};
       responseData.data = coin;
+
       return respondSuccess(res, responseData);
+
     } catch (err) {
       next(err);
     }
@@ -44,6 +46,7 @@ module.exports = {
       responseData.data = coins;
 
       return respondSuccess(res, responseData);
+      
     } catch (err) {
       next(err);
     }

@@ -9,6 +9,7 @@ async function userHasCoin(user, coin_id) {
   });
 
   if (userCoin) return true;
+  
   return false;
 }
 

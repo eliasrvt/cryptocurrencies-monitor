@@ -1,17 +1,19 @@
 # WChallenge - Cryptocurrencies Monitor
 
-### Pre-requisitos 📋
+_Cryptocurrencies Monitor es una API desarrollada con Express Framework y provee un servicio de seguimiento de cryptomonedas para cada usuario registrado._
+
+## Pre-requisitos 📋
 
 - NodeJS
 - Mysql o Mariadb
 - npm
 
-## Comenzando 🚀
+## Instalación 🔧
 
 1. Clonar el repositorio usando
 
 ```
-git clone ...
+git clone https://github.com/eliasrvt/cryptocurrencies-monitor.git
 ```
 
 2. Instalar dependencias
@@ -52,13 +54,20 @@ API_BASE_URL=https://api.coingecko.com/api/v3
 
 4. Crear una base de datos con el nombre definido en los archivos .env
 
+```
+//.env.development
+...
+DB_NAME=cryptocurrencies
+...
+```
+
 5. Ejecutar las migraciones con el siguiente comando
 
 ```
 npm run migrate
 ```
 
-6. Ejecutar seeders para crear usuarios de prueba.
+6. Ejecutar seeders para crear usuarios de prueba. (La clave por defecto para todos los usuario de prueba es _password_)
 
 ```
 npm run seeder
@@ -77,7 +86,7 @@ npm run prod
 npm run test
 ```
 
-## Documentación
+## Documentación 📄
 
 Una breve explicacion de los endpoints de la Api.
 
@@ -85,7 +94,9 @@ Una breve explicacion de los endpoints de la Api.
 
 ```
 POST /auth/login
+```
 
+```
 Cuerpo del JSON (Body)
 {
   'username': 'eliasrava',
@@ -93,27 +104,80 @@ Cuerpo del JSON (Body)
 }
 ```
 
+```
+Ejemplo de respuesta
+{
+  "message": "Login success",
+  "data": {
+      "token": "eyJhbGciOiJ...",
+      "user": {
+          "name": "Administrator",
+          "lastname": "AdminLastname",
+          "username": "admin",
+          "preferred_money": "USD"
+      }
+  }
+}
+```
+
 ### Registro de Usuario
 
 ```
 POST /users/register
+```
 
-Cuerpo del JSON (Body)
+```
+Cuerpo del JSON (Body):
 {
   'name': 'Juan',
   'lastname': 'Perez',
   'username': 'juanper',
-  'password': 'password'
+  'password': 'password',
+  "preferred_money": "ARS", // ARS | USD | EUR
 }
 ```
 
-### Listado de cryptomonedas
+```
+Ejemplo de respuesta
+{
+    "message": "",
+    "data": {
+        "name": "elias",
+        "lastname": "test",
+        "username": "admin22",
+        "preferred_money": "ARS"
+    }
+}
+
+```
+
+### Listado de todas cryptomonedas
 
 ```
 GET /coins
+```
 
+```
+Headers necesarios
 headers: {
     'Authorization': 'Bearer yourWebToken'
+}
+```
+
+```
+Ejemplo de respuesta
+{
+  "message": "",
+  "data": [
+      {
+          "symbol": "btc",
+          "current_price": 47765,
+          "name": "Bitcoin",
+          "image": "url.image.jpg": "2021-09-01T12:03:25.035Z"
+      },
+      ...
+      ...
+  ]
 }
 ```
 
@@ -121,22 +185,40 @@ headers: {
 
 ```
 POST /coins
+```
 
+```
 headers: {
     'Authorization': 'Bearer yourWebToken'
 }
+```
 
+```
 Cuerpo del JSON (Body)
 {
   'coin_external_id': 'bitcoin'
 }
+
+Ejemplo de respuesta
+{
+    "message": "",
+    "data": {
+        "id": 3,
+        "coin_external_id": "eos",
+        "user_id": 1,
+        "updatedAt": "2021-09-01T12:06:46.471Z",
+        "createdAt": "2021-09-01T12:06:46.471Z"
+    }
+}
 ```
 
-### Top de cryptomonedas
+### Top N de cryptomonedas
 
 ```
 GET /users/top
+```
 
+```
 headers: {
     'Authorization': 'Bearer yourWebToken'
 }
@@ -145,5 +227,29 @@ params
   'limit': n,       // n>=1 && n<= 25
   'order': 'desc', // asc || desc
 }
+```
 
+```
+Ejemplo de respuesta
+{
+  "message": "",
+  "data": [
+      {
+          "symbol": "uni",
+          "name": "Uniswap",
+          "image": "url.image.jpg",
+          "last_updated": "2021-09-01T12:09:55.441Z"
+      },
+      ...
+  ]
+}
+
+```
+
+## Testing ⚙️
+
+_Para ejecutar los test usamos MOCHA y para ver los reportes NyC_
+
+```
+npm coverage
 ```

@@ -1,21 +1,21 @@
 "use strict";
 
-var request = require("supertest");
-var app = require("../app.js");
+constr request = require("supertest");
+constr app = require("../app.js");
 
 describe("USER API tests", function () {
-  const userTest = { username: "admin", password: "adminadmin" };
-  const nonExistentUser = { username: "nousername", password: "nopassword" };
 
-  var token = null;
-  var coinId = "uniswap";
+  const token = null;
+  const coinId = "uniswap";
+  const userTest = { username: "admin", password: "password" };
+  const nonExistentUser = { username: "nousername", password: "nopassword" };
 
   before(function (done) {
     request(app)
       .post("/auth/login")
       .send({ username: userTest.username, password: userTest.password })
       .end(function (err, res) {
-        token = res.body.token;
+        token = res.body.data.token;
         done();
       });
   });

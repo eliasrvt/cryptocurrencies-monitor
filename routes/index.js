@@ -1,10 +1,10 @@
-const userRoutes = require("./userRoutes");
-const coinsRoutes = require("./coinRoutes");
-const authRoutes = require("./authRoutes");
 var express = require("express");
 var router = express.Router();
 
-const User = require("../api/models/User");
+const authRoutes = require("./authRoutes");
+const userRoutes = require("./userRoutes");
+const coinsRoutes = require("./coinRoutes");
+
 
 /* GET home page. */
 router.get("/", function (req, res, next) {

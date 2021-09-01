@@ -4,7 +4,7 @@ function formatCoinData(arrayCoins) {
       symbol: coin.symbol,
       current_price: coin.current_price,
       name: coin.name,
-      image: coin.image,
+      image: coin.image.large,
       last_updated: coin.last_updated,
     };
   });

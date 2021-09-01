@@ -1,5 +1,5 @@
-const User = require("../../api/models/User");
 const bcrypt = require("bcrypt");
+const User = require("../../api/models/User");
 const authConfig = require("../../config/auth");
 
 async function createUser(requestBody) {
@@ -17,7 +17,14 @@ async function createUser(requestBody) {
       preferred_money: requestBody.preferred_money,
     });
 
-    return user;
+    let userData = {};
+    userData.name = user.name;
+    userData.lastname = user.lastname;
+    userData.username = user.username;
+    userData.preferred_money = user.preferred_money;
+
+    return userData;
+    
   } catch (error) {
     throw error;
   }

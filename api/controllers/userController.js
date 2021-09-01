@@ -1,5 +1,3 @@
-const Coin = require("../models/Coin");
-const User = require("../models/User");
 const geckoServices = require("../../services/coinGeckoServices");
 const userServices = require("../../services/user");
 const orderByPrice = require("../../utils/orderCoinsByPrice");
@@ -14,7 +12,9 @@ module.exports = {
       res.status(201);
       let responseData = {};
       responseData.data = newUser;
+
       return respondSuccess(res, responseData);
+
     } catch (error) {
       next(error);
     }
@@ -42,6 +42,7 @@ module.exports = {
       responseData.data = topCoins;
 
       return respondSuccess(res, responseData);
+      
     } catch (error) {
       next(error);
     }

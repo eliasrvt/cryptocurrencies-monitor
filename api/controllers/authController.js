@@ -1,13 +1,13 @@
 const loginServices = require("../../services/login");
 const tokenServices = require("../../services/token");
+const respondSuccess = require("../../utils/respondSuccess");
+
+const responseData = {};
 
 module.exports = {
   async login(req, res, next) {
     try {
-      // validate user credentials
       let loginResponse = await loginServices.simpleLogin(req.body);
-
-      // generate token
       let token = await tokenServices.generateToken(loginResponse);
 
       let userData = {};
@@ -16,7 +16,13 @@ module.exports = {
       userData.username = loginResponse.username;
       userData.preferred_money = loginResponse.preferred_money;
 
-      return res.json({ user: userData, token: token });
+      responseData.data = {};
+      responseData.data.token = token;
+      responseData.data.user = userData;
+      responseData.message = "Login success";
+
+      return respondSuccess(res, responseData);
+
     } catch (error) {
       next(error);
     }
